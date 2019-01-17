@@ -3,15 +3,15 @@ This project demonstrates NESTED LOOPS (i.e., loops within loops)
 in the context of TWO-DIMENSIONAL GRAPHICS.
 
 Authors: David Mutchler, Valerie Galluzzi, Mark Hays, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Jacob Jarski.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
 
 def main():
     """ Calls the other functions to demonstrate them. """
-    run_test_draw_L()
+    # run_test_draw_L()
     run_test_draw_wall_on_right()
 
 
@@ -55,6 +55,35 @@ def run_test_draw_L():
 
 
 def draw_L(window, circle, r, c):
+    original_x = circle.center.x
+    original_y = circle.center.y
+    radius = circle.radius
+
+    x = original_x
+    y = original_y
+    for k in range(r):
+        for j in range(3):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.attach_to(window)
+            new_circle.fill_color = circle.fill_color
+            window.render(0.1)
+
+            x = x + (2 * radius)
+
+        y = y + 2 * radius
+        x = original_x
+    for k in range(3):
+        for j in range(c + 3):
+            new_circle = rg.Circle(rg.Point(x, y), radius)
+            new_circle.attach_to(window)
+            new_circle.fill_color = circle.fill_color
+            window.render(0.1)
+
+            x = x + (2 * radius)
+
+        y = y + 2 * radius
+        x = original_x
+
     """
     See   L.pdf   in this project for pictures that may
     help you better understand the following specification:
@@ -80,7 +109,7 @@ def draw_L(window, circle, r, c):
     and m and n are small, positive integers.
     """
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
@@ -103,6 +132,24 @@ def run_test_draw_wall_on_right():
 
 
 def draw_wall_on_right(rectangle, n, window):
+    original_upper_left_corner = rectangle.get_upper_left_corner()
+    original_lower_right_corner = rectangle.get_lower_right_corner()
+    height = rectangle.get_height()
+    width = rectangle.get_width()
+    x = original_upper_left_corner.clone()
+    y = original_lower_right_corner.clone()
+    for k in range(n):
+        for j in range(k+1):
+            new_rectangle = rg.Rectangle(x, y)
+            new_rectangle.attach_to(window)
+            window.render(0.1)
+
+            x.x = x.x - width
+            y.x = y.x - width
+        x.y = x.y + height
+        y.y = y.y + height
+        x.x = original_upper_left_corner.x
+        y.x = original_lower_right_corner.x
     """
     See   Walls.pdf   in this project for pictures that may
     help you better understand the following specification:
@@ -121,7 +168,7 @@ def draw_wall_on_right(rectangle, n, window):
     and n is a small, positive integer.
     """
     # ------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DONE: 3. Implement and test this function.
     #     The testing code is already written for you (above).
     # ------------------------------------------------------------------
 
